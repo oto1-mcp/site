@@ -4,7 +4,6 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
 import { MenuIcon, X, Sparkles } from 'lucide-react';
-import { ThemeToggle } from '@/components/ui/theme-toggle';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface NavItem {
@@ -83,24 +82,20 @@ export function Navbar() {
               ))}
             </div>
             
-            <div className="flex items-center gap-3">
-              <ThemeToggle />
-              <Button 
-                variant="default" 
-                size="sm" 
-                className="ml-2 rounded-full px-5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:opacity-90 transition-opacity text-white"
-                onClick={openWaitlistForm}
-              >
-                Get on Waitlist
-              </Button>
-            </div>
+            <Button 
+              variant="default" 
+              size="sm" 
+              className="ml-2 rounded-full px-5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:opacity-90 transition-opacity text-white"
+              onClick={openWaitlistForm}
+            >
+              Get on Waitlist
+            </Button>
           </div>
 
           {/* Mobile Menu Button */}
           <div className="flex items-center md:hidden">
-            <ThemeToggle />
             <button
-              className="ml-2 p-1 rounded-md hover:bg-gray-100"
+              className="p-1 rounded-md hover:bg-gray-100"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label="Toggle menu"
             >
