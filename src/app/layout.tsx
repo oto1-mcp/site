@@ -7,6 +7,7 @@ import { Navbar } from '@/components/layout/navbar';
 import { Footer } from '@/components/layout/footer';
 import { TiltEffect } from '@/components/ui/tilt-effect';
 import Script from 'next/script';
+import { AuthProvider } from '@/components/providers/AuthProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -68,12 +69,14 @@ export default function RootLayout({
         `}</style>
       </head>
       <body className={`${inter.className} bg-white text-black`} style={{backgroundColor: 'white', color: 'black'}}>
-        <div className="relative min-h-screen flex flex-col bg-white text-black">
-          <Navbar />
-          <main className="flex-1">{children}</main>
-          <Footer />
-          <TiltEffect />
-        </div>
+        <AuthProvider>
+          <div className="relative min-h-screen flex flex-col bg-white text-black">
+            <Navbar />
+            <main className="flex-1">{children}</main>
+            <Footer />
+            <TiltEffect />
+          </div>
+        </AuthProvider>
       </body>
     </html>
   );

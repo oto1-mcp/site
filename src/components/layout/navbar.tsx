@@ -3,8 +3,10 @@
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
-import { MenuIcon, X, Sparkles } from 'lucide-react';
+import { MenuIcon, X, Sparkles, LogOut, LogIn } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useAuth } from '@/components/providers/AuthProvider';
+import { useRouter } from 'next/navigation';
 
 interface NavItem {
   label: string;
@@ -34,6 +36,8 @@ export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [showWaitlistForm, setShowWaitlistForm] = useState(false);
+  const { user, logout } = useAuth();
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -51,6 +55,20 @@ export function Navbar() {
 
   const closeWaitlistForm = () => {
     setShowWaitlistForm(false);
+  };
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      router.push('/');
+    } catch (error) {
+      console.error('Error logging out:', error);
+    }
+  };
+
+  const handleLogin = () => {
+    router.push('/auth');
+    setMobileMenuOpen(false);
   };
 
   return (
@@ -82,14 +100,38 @@ export function Navbar() {
               ))}
             </div>
             
-            <Button 
-              variant="default" 
-              size="sm" 
-              className="ml-2 rounded-full px-5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:opacity-90 transition-opacity text-white"
-              onClick={openWaitlistForm}
-            >
-              Get on Waitlist
-            </Button>
+            {user ? (
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className="ml-2 rounded-full px-5 hover:bg-gray-100 transition-colors"
+                onClick={handleLogout}
+              >
+                <LogOut className="h-4 w-4 mr-2" />
+                Logout
+              </Button>
+            ) : (
+              <>
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="ml-2 rounded-full px-5 hover:bg-gray-100 transition-colors"
+                  onClick={handleLogin}
+                >
+                  <LogIn className="h-4 w-4 mr-2" />
+                  Login
+                </Button>
+                
+                <Button 
+                  variant="default" 
+                  size="sm" 
+                  className="ml-2 rounded-full px-5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:opacity-90 transition-opacity text-white"
+                  onClick={openWaitlistForm}
+                >
+                  Get on Waitlist
+                </Button>
+              </>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -127,13 +169,35 @@ export function Navbar() {
                     </Link>
                   ))}
                   
-                  <Button 
-                    variant="default" 
-                    className="mt-2 rounded-full w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:opacity-90 transition-opacity"
-                    onClick={openWaitlistForm}
-                  >
-                    Get on Waitlist
-                  </Button>
+                  {user ? (
+                    <Button 
+                      variant="outline" 
+                      className="mt-2 w-full justify-start"
+                      onClick={handleLogout}
+                    >
+                      <LogOut className="h-4 w-4 mr-2" />
+                      Logout
+                    </Button>
+                  ) : (
+                    <>
+                      <Button 
+                        variant="outline" 
+                        className="mt-2 w-full justify-start"
+                        onClick={handleLogin}
+                      >
+                        <LogIn className="h-4 w-4 mr-2" />
+                        Login
+                      </Button>
+                      
+                      <Button 
+                        variant="default" 
+                        className="mt-2 rounded-full w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:opacity-90 transition-opacity"
+                        onClick={openWaitlistForm}
+                      >
+                        Get on Waitlist
+                      </Button>
+                    </>
+                  )}
                 </div>
               </div>
             </motion.div>

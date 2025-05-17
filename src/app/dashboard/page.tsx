@@ -7,12 +7,33 @@ import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
 import { useRouter } from 'next/navigation';
 import { DREAM_TRIGGER, ROUTES } from '@/lib/constants';
+import { useAuth } from '@/components/providers/AuthProvider';
 
 export default function DashboardPage() {
   const router = useRouter();
+  const { user, loading } = useAuth();
   const [prompt, setPrompt] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  
+  // Redirect to auth page if not authenticated
+  useEffect(() => {
+    if (!loading && !user) {
+      router.push('/auth');
+    }
+  }, [user, loading, router]);
+
+  // If still loading or not authenticated, show nothing
+  if (loading || !user) {
+    return (
+      <div className="container py-12 md:py-20 max-w-6xl mx-auto px-4 sm:px-6 flex justify-center items-center min-h-[60vh]">
+        <div className="flex flex-col items-center">
+          <RefreshCw className="h-8 w-8 animate-spin text-blue-500 mb-3" />
+          <p className="text-sm font-medium">Loading...</p>
+        </div>
+      </div>
+    );
+  }
   
   // Check if the prompt should trigger the brainstorming feature
   const checkForDreamTrigger = (text: string) => {
