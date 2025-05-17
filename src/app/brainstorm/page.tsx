@@ -1,24 +1,27 @@
 "use client";
 
 import React, { useState, useEffect, Suspense } from "react";
-import { useSearchParams } from "next/navigation";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
+import { useSearchParams, useRouter } from "next/navigation";
+import { Card, CardContent } from "@/components/ui/card";
 import { Chat } from "@/components/ui/chat";
 import { ClaudeMessage } from "@/lib/claude";
 import { DREAM_TRIGGER } from "@/lib/constants";
 import { motion } from "framer-motion";
-import { Sparkles, ArrowLeft, Loader2 } from "lucide-react";
+import { Sparkles, ArrowLeft, Loader2, Rocket } from "lucide-react";
 import Link from "next/link";
+import { ROUTES } from "@/lib/constants";
 
-const BRAINSTORM_SYSTEM_PROMPT = `You are an expert startup ideation assistant who provides very BRIEF and CONCISE responses.
-Keep all responses under 3 sentences whenever possible.
+const BRAINSTORM_SYSTEM_PROMPT = `You are an expert startup ideation assistant who provides EXTREMELY BRIEF and CONCISE responses.
+Keep all responses under 2-3 sentences maximum.
 Help the user flesh out their "build" idea into a viable startup concept with minimal text.
-Ask focused questions to understand their vision.
+Ask very focused questions to understand their vision.
 Provide only the most essential action items.
-Be direct and to the point - users prefer brief, actionable insights over lengthy explanations.`;
+Be direct and to the point - always prioritize brevity over explanation.
+Use bullet points when listing options or steps.`;
 
 function BrainstormContent() {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const initialPrompt = searchParams.get("prompt") || DREAM_TRIGGER;
   
   const [messages, setMessages] = useState<ClaudeMessage[]>([]);
@@ -114,8 +117,13 @@ function BrainstormContent() {
     }
   };
 
+  const handleBuildIt = () => {
+    // Navigate to dashboard to start building
+    router.push(ROUTES.DASHBOARD);
+  };
+
   return (
-    <div className="container py-10 md:py-16 max-w-6xl mx-auto px-4 sm:px-6 min-h-screen flex flex-col">
+    <div className="container py-12 md:py-20 max-w-6xl mx-auto px-4 sm:px-6 min-h-screen flex flex-col">
       <div className="mb-10">
         <Link href="/" className="inline-flex items-center mb-6 text-blue-600 hover:text-blue-800 transition-colors">
           <ArrowLeft className="h-4 w-4 mr-2" />
@@ -156,9 +164,10 @@ function BrainstormContent() {
         </CardContent>
         <div className="p-4 border-t border-border/40 flex justify-center">
           <button
+            onClick={handleBuildIt}
             className="px-6 py-2.5 rounded-full bg-gradient-to-r from-green-600 to-emerald-600 hover:opacity-90 transition-opacity text-white font-medium flex items-center gap-2 shadow-md"
           >
-            Build It
+            Build It <Rocket className="h-4 w-4" />
           </button>
         </div>
       </Card>
@@ -169,7 +178,7 @@ function BrainstormContent() {
 // Add a loading fallback for the Suspense boundary
 function BrainstormLoading() {
   return (
-    <div className="container py-10 md:py-16 max-w-6xl mx-auto px-4 sm:px-6 min-h-screen flex items-center justify-center">
+    <div className="container py-12 md:py-20 max-w-6xl mx-auto px-4 sm:px-6 min-h-screen flex items-center justify-center">
       <div className="flex flex-col items-center">
         <Loader2 className="h-12 w-12 animate-spin text-blue-500 mb-4" />
         <p className="text-lg font-medium">Loading your brainstorming session...</p>

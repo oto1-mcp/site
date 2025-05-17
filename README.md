@@ -14,9 +14,18 @@ MCP Supervisor is a powerful platform that leverages Model Context Protocol (MCP
 ## Technology Stack
 
 - **Frontend**: Next.js, TypeScript, Tailwind CSS
-- **AI Integration**: OpenAI API, Greptile for code search
+- **AI Integration**: OpenAI API, Greptile for code search, Anthropic Claude API
 - **Deployment**: Vercel
 - **Additional Tools**: Gumloop for enhanced agent coordination
+
+## Environment Variables
+
+This project requires the following environment variables to be set in a `.env.local` file in the root directory:
+
+```
+# Claude API key - required for the brainstorming feature
+CLAUDE_API_KEY=your_claude_api_key_here
+```
 
 ## Hackathon Project
 
@@ -35,6 +44,8 @@ git clone <your-repo-url>
 cd mcp-hack
 npm install
 ```
+
+Then, create a `.env.local` file with the required environment variables (see above).
 
 Then, run the development server:
 

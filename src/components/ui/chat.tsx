@@ -51,7 +51,7 @@ export function Chat({ initialPrompt, onSend, messages, isLoading }: ChatProps) 
   };
 
   return (
-          <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full">
       <div className="flex-1 overflow-y-auto px-4 md:px-6 py-4 space-y-3">
         {messages.map((msg, index) => (
           <div
@@ -83,7 +83,7 @@ export function Chat({ initialPrompt, onSend, messages, isLoading }: ChatProps) 
                 className={`rounded-lg p-3 shadow-sm text-sm ${
                   msg.role === "user"
                     ? "bg-blue-600 text-white"
-                    : "bg-background/70 backdrop-blur-sm border border-border/50"
+                    : "bg-background/80 border border-border/50 backdrop-blur-sm"
                 }`}
               >
                 <div className="whitespace-pre-wrap">{msg.content}</div>
@@ -94,11 +94,11 @@ export function Chat({ initialPrompt, onSend, messages, isLoading }: ChatProps) 
         
         {isLoading && (
           <div className="flex justify-start animate-fadeIn">
-                          <div className="flex max-w-[85%]">
+            <div className="flex max-w-[85%]">
               <div className="flex-shrink-0 h-6 w-6 rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 mr-2 flex items-center justify-center">
                 <Sparkles className="h-3 w-3 text-white" />
               </div>
-              <div className="rounded-lg p-3 bg-background/70 backdrop-blur-sm border border-border/50 shadow-sm text-sm">
+              <div className="rounded-lg p-3 bg-background/80 border border-border/50 backdrop-blur-sm shadow-sm text-sm">
                 <div className="flex items-center space-x-2">
                   <RefreshCw className="h-4 w-4 text-blue-500 animate-spin" />
                   <div className="text-sm">AI is thinking...</div>
