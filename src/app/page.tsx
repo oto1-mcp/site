@@ -35,6 +35,40 @@ export default function HomePage() {
               <p className="text-xl text-gray-600 mb-8 max-w-xl mx-auto lg:mx-0">
                 Our MCP Supervisor coordinates specialized AI agents to build your startup from concept to launch - all in one platform.
               </p>
+              
+              {/* Search Bar Component */}
+              <div className="max-w-2xl w-full mx-auto lg:mx-0 mb-8">
+                <div className="relative w-full">
+                  <input
+                    type="text"
+                    placeholder="Build your dream here..."
+                    className="w-full py-4 px-6 pr-16 rounded-xl border border-gray-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-gray-700"
+                  />
+                  <button 
+                    className="absolute right-3 top-1/2 -translate-y-1/2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-2 rounded-lg"
+                    aria-label="Search"
+                  >
+                    <ArrowUpRight className="h-5 w-5" />
+                  </button>
+                </div>
+                
+                <div className="flex flex-wrap justify-center lg:justify-start gap-2 mt-3">
+                  {[
+                    { icon: "📄", text: "PDF viewer" },
+                    { icon: "📊", text: "Recharts dashboard" },
+                    { icon: "🛒", text: "E-commerce store" },
+                    { icon: "📝", text: "Markdown editor" },
+                  ].map((suggestion) => (
+                    <button
+                      key={suggestion.text}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors text-sm text-gray-700"
+                    >
+                      <span>{suggestion.icon}</span> {suggestion.text}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <Button size="lg" className="rounded-full group bg-gradient-to-r from-blue-600 to-indigo-600 hover:opacity-90 transition-opacity text-white">
                   <Link href="/dashboard" className="flex items-center">
