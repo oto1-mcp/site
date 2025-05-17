@@ -1,19 +1,36 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Send, Cpu, AlertCircle, CheckCircle, RefreshCw, Sparkles, FileText, BriefcaseIcon, PanelsTopLeft } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
+import { useRouter } from 'next/navigation';
+import { DREAM_TRIGGER, ROUTES } from '@/lib/constants';
 
 export default function DashboardPage() {
+  const router = useRouter();
   const [prompt, setPrompt] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  
+  // Check if the prompt should trigger the brainstorming feature
+  const checkForDreamTrigger = (text: string) => {
+    const lowercaseText = text.toLowerCase();
+    
+    // Match any text starting with "build" - this will be more flexible
+    return lowercaseText.startsWith("build");
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!prompt.trim()) return;
+    
+    // Check if the prompt contains the dream trigger
+    if (checkForDreamTrigger(prompt)) {
+      router.push(`${ROUTES.BRAINSTORM}?prompt=${encodeURIComponent(prompt)}`);
+      return;
+    }
     
     setIsSubmitting(true);
     

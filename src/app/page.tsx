@@ -1,16 +1,21 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Terminal, Code, Activity, CheckCircle, BarChart, LucideSparkles, Check, ArrowUpRight, X } from 'lucide-react';
 import HeroAnimation from '@/components/ui/hero-animation';
 import Statistics from '@/components/sections/statistics';
 import Testimonials from '@/components/sections/testimonials';
 import { motion } from 'framer-motion';
+import { ROUTES } from '@/lib/constants';
 
 export default function HomePage() {
+  const router = useRouter();
   const [showWaitlistForm, setShowWaitlistForm] = useState(false);
+  const [searchInput, setSearchInput] = useState('');
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
   const openWaitlistForm = () => {
     setShowWaitlistForm(true);
@@ -18,6 +23,46 @@ export default function HomePage() {
 
   const closeWaitlistForm = () => {
     setShowWaitlistForm(false);
+  };
+  
+  // Check if the input should trigger the brainstorming feature
+  const checkForDreamTrigger = (text: string) => {
+    const lowercaseText = text.toLowerCase();
+    console.log(`Checking input: "${lowercaseText}"`);
+    
+    // Match any text starting with "build" - this will catch:
+    // "build your dream", "build tinder app", "build a website", etc.
+    const result = lowercaseText.startsWith("build");
+    console.log(`Trigger match result: ${result}`);
+    return result;
+  };
+  
+  const handleSearch = () => {
+    console.log("Search button clicked, input:", searchInput);
+    
+    if (!searchInput.trim()) {
+      console.log("Input is empty, returning");
+      return;
+    }
+    
+    if (checkForDreamTrigger(searchInput)) {
+      console.log(`Trigger detected in "${searchInput}", redirecting to brainstorm page`);
+      const redirectUrl = `${ROUTES.BRAINSTORM}?prompt=${encodeURIComponent(searchInput)}`;
+      console.log(`Redirecting to: ${redirectUrl}`);
+      router.push(redirectUrl);
+    } else {
+      console.log(`Trigger NOT detected in "${searchInput}", no action taken`);
+      // You could handle non-brainstorm searches here 
+      // For example, redirect to a search results page
+    }
+  };
+  
+  const handleSuggestionClick = (suggestion: string) => {
+    console.log(`Suggestion clicked: "${suggestion}"`);
+    setSearchInput(suggestion);
+    if (searchInputRef.current) {
+      searchInputRef.current.focus();
+    }
   };
 
   return (
@@ -47,13 +92,24 @@ export default function HomePage() {
               <div className="max-w-2xl w-full mx-auto lg:mx-0 mb-8">
                 <div className="relative w-full">
                   <input
+                    ref={searchInputRef}
                     type="text"
                     placeholder="Build your dream here..."
                     className="w-full py-4 px-6 pr-16 rounded-xl border border-gray-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-gray-700"
+                    value={searchInput}
+                    onChange={(e) => setSearchInput(e.target.value)}
+                    onKeyDown={(e) => {
+                      console.log("Key pressed:", e.key);
+                      if (e.key === 'Enter') {
+                        console.log("Enter key pressed");
+                        handleSearch();
+                      }
+                    }}
                   />
                   <button 
                     className="absolute right-3 top-1/2 -translate-y-1/2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-2 rounded-lg"
                     aria-label="Search"
+                    onClick={handleSearch}
                   >
                     <ArrowUpRight className="h-5 w-5" />
                   </button>
@@ -61,14 +117,15 @@ export default function HomePage() {
                 
                 <div className="flex flex-wrap justify-center lg:justify-start gap-2 mt-3">
                   {[
-                    { icon: "📄", text: "PDF viewer" },
-                    { icon: "📊", text: "Recharts dashboard" },
-                    { icon: "🛒", text: "E-commerce store" },
-                    { icon: "📝", text: "Markdown editor" },
+                    { icon: "🚀", text: "Build your dream" },
+                    { icon: "💼", text: "Build your dream startup" },
+                    { icon: "🌐", text: "Build your dream website" },
+                    { icon: "📱", text: "Build your dream app" },
                   ].map((suggestion) => (
                     <button
                       key={suggestion.text}
                       className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors text-sm text-gray-700"
+                      onClick={() => handleSuggestionClick(suggestion.text)}
                     >
                       <span>{suggestion.icon}</span> {suggestion.text}
                     </button>
