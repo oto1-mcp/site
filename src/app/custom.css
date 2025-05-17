@@ -1,0 +1,147 @@
+/* Base styling */
+body {
+  background-color: white !important;
+  color: #1a202c !important;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  color: #111827 !important;
+}
+
+p {
+  color: #4B5563 !important;
+}
+
+/* Colors */
+.text-blue-600, .gradient-text {
+  color: #2563EB !important;
+}
+
+.text-indigo-600 {
+  color: #4F46E5 !important;
+}
+
+.text-gray-900 {
+  color: #111827 !important;
+}
+
+.text-gray-600 {
+  color: #4B5563 !important;
+}
+
+.text-white {
+  color: white !important;
+}
+
+/* Backgrounds */
+.bg-white {
+  background-color: white !important;
+}
+
+.bg-gray-50 {
+  background-color: #F9FAFB !important;
+}
+
+.bg-gradient-to-r.from-blue-600.to-indigo-600 {
+  background: linear-gradient(to right, #2563EB, #4F46E5) !important;
+}
+
+/* Borders */
+.border-gray-200 {
+  border-color: #E5E7EB !important;
+}
+
+/* Container */
+.container {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 1rem;
+  padding-left: 1rem;
+}
+
+@media (min-width: 640px) {
+  .container {
+    max-width: 640px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1280px;
+  }
+}
+
+/* Navbar */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: white;
+  z-index: 50;
+}
+
+/* Hero Section */
+.hero-section {
+  padding-top: 8rem;
+  padding-bottom: 2rem;
+  background-color: white;
+}
+
+/* Features Section */
+.features-section {
+  padding: 5rem 0;
+  background-color: #F9FAFB;
+}
+
+/* Cards */
+.card {
+  border-radius: 0.75rem;
+  border: 1px solid #E5E7EB;
+  background-color: white;
+  padding: 1.5rem;
+  transition: all 0.2s;
+}
+
+.card:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Buttons */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  border-radius: 9999px;
+  padding: 0.625rem 1.25rem;
+  transition: all 0.2s;
+}
+
+.button-primary {
+  background: linear-gradient(to right, #2563EB, #4F46E5);
+  color: white;
+}
+
+.button-outline {
+  border: 1px solid #E5E7EB;
+  color: #4B5563;
+}
+
+.button:hover {
+  opacity: 0.9;
+} 
