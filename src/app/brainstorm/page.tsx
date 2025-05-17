@@ -167,7 +167,7 @@ function BrainstormContent() {
             onClick={handleBuildIt}
             className="px-6 py-2.5 rounded-full bg-gradient-to-r from-green-600 to-emerald-600 hover:opacity-90 transition-opacity text-white font-medium flex items-center gap-2 shadow-md"
           >
-            Build It <Rocket className="h-4 w-4" />
+            Build it! <Rocket className="h-4 w-4" />
           </button>
         </div>
       </Card>

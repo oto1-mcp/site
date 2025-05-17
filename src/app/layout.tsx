@@ -14,9 +14,9 @@ export const metadata: Metadata = {
   description: 'AI-powered orchestration for your startup journey',
   keywords: 'AI, startup, 0to1, orchestration, hackathon',
   icons: {
-    icon: '/blue-star-favicon.ico',
-    shortcut: '/blue-star-favicon.ico',
-    apple: '/blue-star-favicon.ico',
+    icon: '/sparkles-favicon.svg',
+    shortcut: '/sparkles-favicon.svg',
+    apple: '/sparkles-favicon.svg',
   },
 };
 
@@ -28,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link rel="icon" href="/blue-star-favicon.ico" sizes="any" />
+        <link rel="icon" href="/sparkles-favicon.svg" sizes="any" />
         <style>{`
           body {
             background-color: white !important;
