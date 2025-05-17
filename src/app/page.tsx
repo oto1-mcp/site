@@ -130,10 +130,19 @@ export default function HomePage() {
                 <Button 
                   size="lg" 
                   className="rounded-full group bg-gradient-to-r from-blue-600 to-indigo-600 hover:opacity-90 transition-opacity text-white"
-                  onClick={openWaitlistForm}
+                  onClick={handleCheckout}
+                  disabled={isLoading}
                 >
                   <span className="flex items-center">
-                    Get on Waitlist <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                    {isLoading ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Processing...
+                      </>
+                    ) : (
+                      <>
+                        Get on Waitlist <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                      </>
+                    )}
                   </span>
                 </Button>
                 <Button size="lg" variant="outline" className="rounded-full border-gray-300">
@@ -275,9 +284,18 @@ export default function HomePage() {
               <Button 
                 size="lg" 
                 className="rounded-full group bg-gradient-to-r from-blue-600 to-indigo-600 hover:opacity-90 transition-opacity text-white"
-                onClick={openWaitlistForm}
+                onClick={handleCheckout}
+                disabled={isLoading}
               >
-                Get on Waitlist <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                {isLoading ? (
+                  <span className="flex items-center">
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Processing...
+                  </span>
+                ) : (
+                  <span className="flex items-center">
+                    Get on Waitlist <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                  </span>
+                )}
               </Button>
             </motion.div>
           </div>
