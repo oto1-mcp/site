@@ -1,15 +1,25 @@
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Terminal, Code, Activity, CheckCircle, BarChart, LucideSparkles, Check, ArrowUpRight } from 'lucide-react';
+import { ArrowRight, Terminal, Code, Activity, CheckCircle, BarChart, LucideSparkles, Check, ArrowUpRight, X } from 'lucide-react';
 import HeroAnimation from '@/components/ui/hero-animation';
 import Statistics from '@/components/sections/statistics';
 import Testimonials from '@/components/sections/testimonials';
 import { motion } from 'framer-motion';
 
 export default function HomePage() {
+  const [showWaitlistForm, setShowWaitlistForm] = useState(false);
+
+  const openWaitlistForm = () => {
+    setShowWaitlistForm(true);
+  };
+
+  const closeWaitlistForm = () => {
+    setShowWaitlistForm(false);
+  };
+
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section with Animation */}
@@ -67,10 +77,14 @@ export default function HomePage() {
               </div>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <Button size="lg" className="rounded-full group bg-gradient-to-r from-blue-600 to-indigo-600 hover:opacity-90 transition-opacity text-white">
-                  <Link href="/dashboard" className="flex items-center">
-                    Get Started <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                  </Link>
+                <Button 
+                  size="lg" 
+                  className="rounded-full group bg-gradient-to-r from-blue-600 to-indigo-600 hover:opacity-90 transition-opacity text-white"
+                  onClick={openWaitlistForm}
+                >
+                  <span className="flex items-center">
+                    Get on Waitlist <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                  </span>
                 </Button>
                 <Button size="lg" variant="outline" className="rounded-full border-gray-300">
                   <Link href="/#how-it-works" className="flex items-center">
@@ -208,15 +222,42 @@ export default function HomePage() {
               <p className="text-xl text-gray-600 mb-8">
                 Join thousands of founders who are building the future with our 0to1 platform.
               </p>
-              <Button size="lg" className="rounded-full group bg-gradient-to-r from-blue-600 to-indigo-600 hover:opacity-90 transition-opacity text-white">
-                <Link href="/dashboard">
-                  Get Started <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                </Link>
+              <Button 
+                size="lg" 
+                className="rounded-full group bg-gradient-to-r from-blue-600 to-indigo-600 hover:opacity-90 transition-opacity text-white"
+                onClick={openWaitlistForm}
+              >
+                Get on Waitlist <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
               </Button>
             </motion.div>
           </div>
         </div>
       </section>
+
+      {/* Waitlist Form Popup */}
+      {showWaitlistForm && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
+          <div className="bg-white rounded-lg shadow-xl max-w-[700px] w-full max-h-[90vh] overflow-auto relative">
+            <button 
+              onClick={closeWaitlistForm}
+              className="absolute top-3 right-3 text-gray-500 hover:text-gray-800 z-10"
+              aria-label="Close"
+            >
+              <X size={24} />
+            </button>
+            <iframe 
+              src="https://docs.google.com/forms/d/e/1FAIpQLSchNg5TMV7-Ovo2VMUSkatn8bEN9iVS4VSlv9DxnVtb_VVa1g/viewform?embedded=true" 
+              width="640" 
+              height="551" 
+              frameBorder="0" 
+              title="Waitlist Form"
+              className="w-full"
+            >
+              Loading…
+            </iframe>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

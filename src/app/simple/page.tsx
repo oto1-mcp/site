@@ -1,4 +1,17 @@
+"use client";
+import { useState } from 'react';
+
 export default function SimplePage() {
+  const [showPopup, setShowPopup] = useState(false);
+
+  const openWaitlistForm = () => {
+    setShowPopup(true);
+  };
+
+  const closePopup = () => {
+    setShowPopup(false);
+  };
+
   return (
     <div style={{
       backgroundColor: "white",
@@ -37,15 +50,18 @@ export default function SimplePage() {
           <a href="/#how-it-works" style={{color: "#4b5563", textDecoration: "none"}}>
             How It Works
           </a>
-          <button style={{
-            backgroundColor: "#3b82f6",
-            color: "white",
-            padding: "0.5rem 1rem",
-            borderRadius: "0.375rem",
-            border: "none",
-            cursor: "pointer"
-          }}>
-            Get Started
+          <button 
+            onClick={openWaitlistForm}
+            style={{
+              backgroundColor: "#3b82f6",
+              color: "white",
+              padding: "0.5rem 1rem",
+              borderRadius: "0.375rem",
+              border: "none",
+              cursor: "pointer"
+            }}
+          >
+            Get on Waitlist
           </button>
         </div>
       </nav>
@@ -70,19 +86,22 @@ export default function SimplePage() {
             gap: "1rem",
             justifyContent: "center"
           }}>
-            <button style={{
-              backgroundColor: "#3b82f6",
-              color: "white",
-              padding: "0.75rem 1.5rem",
-              borderRadius: "0.375rem",
-              border: "none",
-              cursor: "pointer",
-              fontWeight: "500",
-              display: "flex",
-              alignItems: "center",
-              gap: "0.5rem"
-            }}>
-              Get Started
+            <button 
+              onClick={openWaitlistForm}
+              style={{
+                backgroundColor: "#3b82f6",
+                color: "white",
+                padding: "0.75rem 1.5rem",
+                borderRadius: "0.375rem",
+                border: "none",
+                cursor: "pointer",
+                fontWeight: "500",
+                display: "flex",
+                alignItems: "center",
+                gap: "0.5rem"
+              }}
+            >
+              Get on Waitlist
               <span>→</span>
             </button>
             <button style={{
@@ -225,6 +244,57 @@ export default function SimplePage() {
           © {new Date().getFullYear()} 0to1. All rights reserved.
         </div>
       </footer>
+
+      {showPopup && (
+        <div style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: "rgba(0, 0, 0, 0.5)",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          zIndex: 1000
+        }}>
+          <div style={{
+            backgroundColor: "white",
+            borderRadius: "0.5rem",
+            padding: "1rem",
+            position: "relative",
+            maxWidth: "700px",
+            width: "100%",
+            maxHeight: "90vh",
+            overflow: "auto"
+          }}>
+            <button 
+              onClick={closePopup}
+              style={{
+                position: "absolute",
+                top: "0.5rem",
+                right: "0.5rem",
+                backgroundColor: "transparent",
+                border: "none",
+                fontSize: "1.5rem",
+                cursor: "pointer",
+                color: "#4b5563"
+              }}
+            >
+              ×
+            </button>
+            <iframe 
+              src="https://docs.google.com/forms/d/e/1FAIpQLSchNg5TMV7-Ovo2VMUSkatn8bEN9iVS4VSlv9DxnVtb_VVa1g/viewform?embedded=true" 
+              width="640" 
+              height="551" 
+              frameBorder="0" 
+              title="Waitlist Form"
+            >
+              Loading…
+            </iframe>
+          </div>
+        </div>
+      )}
     </div>
   );
 } 
