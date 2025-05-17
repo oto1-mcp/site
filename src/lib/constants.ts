@@ -1,5 +1,5 @@
 // API Keys
-export const CLAUDE_API_KEY = "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";
+export const CLAUDE_API_KEY = process.env.CLAUDE_API_KEY || "";
 
 // Routes
 export const ROUTES = {
