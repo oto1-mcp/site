@@ -1,8 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { generateClaudeResponse } from "@/lib/claude";
+import { CLAUDE_API_KEY } from "@/lib/constants";
 
 export async function POST(request: NextRequest) {
   console.log("Claude API route called");
+  console.log("Environment CLAUDE_API_KEY exists:", !!process.env.CLAUDE_API_KEY);
+  console.log("API key from constants:", CLAUDE_API_KEY.substring(0, 10) + "...");
+  console.log("API key length:", CLAUDE_API_KEY.length);
+  
   try {
     const requestBody = await request.json();
     console.log("Request body received:", JSON.stringify(requestBody));

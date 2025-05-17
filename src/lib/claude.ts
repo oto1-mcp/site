@@ -16,10 +16,14 @@ export async function generateClaudeResponse(
   try {
     console.log("Generating Claude response with messages:", JSON.stringify(messages));
     
-    // Ensure the API key is properly formatted
+    // Clean up API key (remove any whitespace)
     const apiKey = CLAUDE_API_KEY.trim();
+    console.log("API key length:", apiKey.length);
     
-    // Create the request body according to latest Claude API specs
+    if (!apiKey || apiKey.length < 10) {
+      throw new Error("Invalid API key: Key is missing or too short");
+    }
+    
     const requestBody = {
       model: "claude-3-haiku-20240307",
       messages: messages,
@@ -29,15 +33,15 @@ export async function generateClaudeResponse(
     
     console.log("Claude API request body:", JSON.stringify(requestBody));
     
-    // Make the API request with proper headers
+    // Using the exact formatting from Anthropic's official documentation
     const response = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json", 
-        "X-API-Key": apiKey,
+        "Content-Type": "application/json",
+        "x-api-key": apiKey,
         "anthropic-version": "2023-06-01"
       },
-      body: JSON.stringify(requestBody)
+      body: JSON.stringify(requestBody),
     });
 
     console.log("Claude API response status:", response.status);
