@@ -11,9 +11,14 @@ import { TiltEffect } from '@/components/ui/tilt-effect';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'MCP Supervisor',
+  title: '0to1',
   description: 'AI-powered orchestration for your startup journey',
-  keywords: 'AI, startup, MCP, Model Context Protocol, orchestration, hackathon',
+  keywords: 'AI, startup, 0to1, orchestration, hackathon',
+  icons: {
+    icon: '/blue-star-favicon.ico',
+    shortcut: '/blue-star-favicon.ico',
+    apple: '/blue-star-favicon.ico',
+  },
 };
 
 export default function RootLayout({
@@ -24,6 +29,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <link rel="icon" href="/blue-star-favicon.ico" sizes="any" />
         <style>{`
           body {
             background-color: white !important;

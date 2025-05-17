@@ -50,7 +50,7 @@ export default function DashboardPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            Enter your startup idea and our MCP Supervisor will orchestrate specialized MCPs to bring your vision to life.
+            Enter your startup idea and our 0to1 will orchestrate specialized AI Agents to bring your vision to life.
           </motion.p>
         </div>
 
@@ -58,7 +58,7 @@ export default function DashboardPage() {
           <CardHeader className="pb-4">
             <CardTitle className="text-2xl">Your Startup Vision</CardTitle>
             <CardDescription>
-              Provide a detailed description of your startup idea and our MCPs will get to work.
+              Provide a detailed description of your startup idea and our AI Agents will get to work.
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -111,7 +111,7 @@ export default function DashboardPage() {
                 <CheckCircle className="h-5 w-5 mr-3 mt-0.5 text-green-500" />
                 <div>
                   <p className="font-medium text-green-700 dark:text-green-300">Request Submitted Successfully!</p>
-                  <p className="text-sm text-muted-foreground mt-1">Your startup vision has been submitted and MCPs are now processing your request.</p>
+                  <p className="text-sm text-muted-foreground mt-1">Your startup vision has been submitted and AI Agents are now processing your request.</p>
                 </div>
               </div>
             </div>
@@ -125,46 +125,46 @@ export default function DashboardPage() {
           className="mb-12"
         >
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-semibold">MCP Status</h2>
+            <h2 className="text-2xl font-semibold">AI Agent Status</h2>
             <div className="text-sm px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300">
               <span className="font-medium">Status:</span> {submitted ? 'Active' : 'Waiting for input'}
             </div>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
-            {mcpStatuses.map((mcp, index) => (
+            {aiAgentStatuses.map((agent, index) => (
               <Card 
-                key={mcp.name} 
+                key={agent.name} 
                 className="border-border/50 bg-background/50 backdrop-blur-sm rounded-xl hover:shadow-md transition-shadow overflow-hidden"
               >
                 <CardContent className="p-0">
                   <div className="pt-5 px-5 pb-4 border-b border-border/40">
                     <div className="flex items-start justify-between mb-3">
                       <div className="flex items-center">
-                        <div className={`p-2 rounded-lg mr-3 ${getStatusColor(mcp.status).bgColor}`}>
-                          {getMcpIcon(mcp.name, getStatusColor(mcp.status).textColor)}
+                        <div className={`p-2 rounded-lg mr-3 ${getStatusColor(agent.status).bgColor}`}>
+                          {getAgentIcon(agent.name, getStatusColor(agent.status).textColor)}
                         </div>
                         <div>
-                          <h3 className="font-medium">{mcp.name}</h3>
-                          <p className="text-xs text-muted-foreground">{getStatusText(mcp.status, submitted)}</p>
+                          <h3 className="font-medium">{agent.name}</h3>
+                          <p className="text-xs text-muted-foreground">{getStatusText(agent.status, submitted)}</p>
                         </div>
                       </div>
-                      <StatusIndicator status={mcp.status} submitted={submitted} delay={index * 3} />
+                      <StatusIndicator status={agent.status} submitted={submitted} delay={index * 3} />
                     </div>
                   </div>
                   <div className="p-5">
                     <div className="mb-2 flex justify-between text-xs text-muted-foreground">
                       <span>Progress</span>
-                      <span>{getProgressWidth(mcp.status, index)}%</span>
+                      <span>{getProgressWidth(agent.status, index)}%</span>
                     </div>
                     <div className="h-2 w-full bg-muted rounded-full overflow-hidden">
                       <div 
-                        className={`h-full ${getStatusColor(mcp.status).bgProgress} rounded-full transition-all duration-1000`} 
-                        style={{ width: submitted ? `${getProgressWidth(mcp.status, index)}%` : '0%' }}
+                        className={`h-full ${getStatusColor(agent.status).bgProgress} rounded-full transition-all duration-1000`} 
+                        style={{ width: submitted ? `${getProgressWidth(agent.status, index)}%` : '0%' }}
                       ></div>
                     </div>
                     <div className="mt-4">
-                      <p className="text-xs text-muted-foreground">{getMcpDescription(mcp.name)}</p>
+                      <p className="text-xs text-muted-foreground">{getAgentDescription(agent.name)}</p>
                     </div>
                   </div>
                 </CardContent>
@@ -180,7 +180,7 @@ export default function DashboardPage() {
               <div>
                 <p className="font-medium text-amber-700 dark:text-amber-400">Demo Version</p>
                 <p className="text-sm text-muted-foreground mt-1">
-                  This is a demo version. In the full version, each MCP will generate actual deliverables based on your input.
+                  This is a demo version. In the full version, each AI Agent will generate actual deliverables based on your input.
                 </p>
               </div>
             </div>
@@ -191,51 +191,51 @@ export default function DashboardPage() {
   );
 }
 
-function getMcpIcon(name: string, colorClass: string) {
+function getAgentIcon(name: string, colorClass: string) {
   switch (name) {
-    case 'Web Development MCP':
+    case 'Web Development Agent':
       return <PanelsTopLeft className={`h-5 w-5 ${colorClass}`} />;
-    case 'Social Media MCP':
+    case 'Social Media Agent':
       return <BriefcaseIcon className={`h-5 w-5 ${colorClass}`} />;
-    case 'Content Creation MCP':
+    case 'Content Creation Agent':
       return <FileText className={`h-5 w-5 ${colorClass}`} />;
-    case 'Growth Hacking MCP':
+    case 'Growth Hacking Agent':
       return <Cpu className={`h-5 w-5 ${colorClass}`} />;
     default:
       return <Cpu className={`h-5 w-5 ${colorClass}`} />;
   }
 }
 
-function getMcpDescription(name: string) {
+function getAgentDescription(name: string) {
   switch (name) {
-    case 'Web Development MCP':
+    case 'Web Development Agent':
       return 'Builds functional web applications and landing pages for your startup';
-    case 'Social Media MCP':
+    case 'Social Media Agent':
       return 'Creates and sets up social media profiles on relevant platforms';
-    case 'Content Creation MCP':
+    case 'Content Creation Agent':
       return 'Generates engaging copy, blog posts, and marketing content';
-    case 'Growth Hacking MCP':
+    case 'Growth Hacking Agent':
       return 'Identifies growth opportunities and marketing strategies';
     default:
       return 'Processing your startup vision';
   }
 }
 
-type McpStatus = 'idle' | 'processing' | 'completed' | 'error';
+type AgentStatus = 'idle' | 'processing' | 'completed' | 'error';
 
-interface Mcp {
+interface Agent {
   name: string;
-  status: McpStatus;
+  status: AgentStatus;
 }
 
-const mcpStatuses: Mcp[] = [
-  { name: 'Web Development MCP', status: 'idle' },
-  { name: 'Social Media MCP', status: 'idle' },
-  { name: 'Content Creation MCP', status: 'idle' },
-  { name: 'Growth Hacking MCP', status: 'idle' },
+const aiAgentStatuses: Agent[] = [
+  { name: 'Web Development Agent', status: 'idle' },
+  { name: 'Social Media Agent', status: 'idle' },
+  { name: 'Content Creation Agent', status: 'idle' },
+  { name: 'Growth Hacking Agent', status: 'idle' },
 ];
 
-function getStatusColor(status: McpStatus) {
+function getStatusColor(status: AgentStatus) {
   switch (status) {
     case 'idle':
       return { 
@@ -264,7 +264,7 @@ function getStatusColor(status: McpStatus) {
   }
 }
 
-function getStatusText(status: McpStatus, submitted: boolean): string {
+function getStatusText(status: AgentStatus, submitted: boolean): string {
   if (!submitted) return "Waiting for input";
   
   switch (status) {
@@ -281,7 +281,7 @@ function getStatusText(status: McpStatus, submitted: boolean): string {
   }
 }
 
-function getProgressWidth(status: McpStatus, index: number): number {
+function getProgressWidth(status: AgentStatus, index: number): number {
   if (status === 'idle') return 0;
   if (status === 'completed') return 100;
   
@@ -290,13 +290,13 @@ function getProgressWidth(status: McpStatus, index: number): number {
 }
 
 interface StatusIndicatorProps {
-  status: McpStatus;
+  status: AgentStatus;
   submitted: boolean;
   delay: number;
 }
 
 function StatusIndicator({ status, submitted, delay }: StatusIndicatorProps) {
-  const [currentStatus, setCurrentStatus] = useState<McpStatus>(status);
+  const [currentStatus, setCurrentStatus] = useState<AgentStatus>(status);
   
   React.useEffect(() => {
     if (!submitted) return;
@@ -323,7 +323,7 @@ function StatusIndicator({ status, submitted, delay }: StatusIndicatorProps) {
   );
 }
 
-function statusBadgeStyle(status: McpStatus): string {
+function statusBadgeStyle(status: AgentStatus): string {
   switch (status) {
     case 'idle':
       return 'text-xs px-2 py-1 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300';

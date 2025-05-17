@@ -54,7 +54,7 @@ export function Navbar() {
             <div className="w-9 h-9 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center text-white">
               <Sparkles size={20} />
             </div>
-            <span className="text-blue-600">MCP Supervisor</span>
+            <span className="text-blue-600">0to1</span>
           </Link>
         </div>
 

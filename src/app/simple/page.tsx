@@ -21,7 +21,7 @@ export default function SimplePage() {
           fontSize: "1.5rem",
           color: "#3b82f6"
         }}>
-          MCP Supervisor
+          0to1
         </div>
         <div style={{
           display: "flex",
@@ -65,14 +65,6 @@ export default function SimplePage() {
           }}>
             Orchestrate Your <span style={{color: "#3b82f6"}}>Startup Journey</span> With AI
           </h1>
-          <p style={{
-            fontSize: "1.25rem",
-            color: "#4b5563",
-            maxWidth: "800px",
-            margin: "0 auto 2rem"
-          }}>
-            Our MCP Supervisor coordinates specialized AI agents to build your startup from concept to launch - all in one platform.
-          </p>
           <div style={{
             display: "flex",
             gap: "1rem",
@@ -132,15 +124,15 @@ export default function SimplePage() {
               {[
                 {
                   title: "Web App Development",
-                  description: "Specialized MCP creates custom web applications to showcase your startup's unique value proposition."
+                  description: "Specialized AI creates custom web applications to showcase your startup's unique value proposition."
                 },
                 {
                   title: "Social Media Management",
-                  description: "Dedicated MCP creates and manages social media accounts across platforms for maximum exposure."
+                  description: "Dedicated AI creates and manages social media accounts across platforms for maximum exposure."
                 },
                 {
                   title: "Content Creation",
-                  description: "Content MCP generates engaging and SEO-optimized content to attract and convert customers."
+                  description: "Content AI generates engaging and SEO-optimized content to attract and convert customers."
                 }
               ].map((feature, index) => (
                 <div key={index} style={{
@@ -190,13 +182,13 @@ export default function SimplePage() {
               marginBottom: "1rem",
               color: "#3b82f6"
             }}>
-              MCP Supervisor
+              0to1
             </div>
             <p style={{
               color: "#4b5563",
               maxWidth: "20rem"
             }}>
-              Empower your startup journey with our AI-powered MCP orchestration platform.
+              Empower your startup journey with our AI-powered orchestration platform.
             </p>
           </div>
           <div>
@@ -230,7 +222,7 @@ export default function SimplePage() {
           color: "#4b5563",
           fontSize: "0.875rem"
         }}>
-          © {new Date().getFullYear()} MCP Supervisor. All rights reserved.
+          © {new Date().getFullYear()} 0to1. All rights reserved.
         </div>
       </footer>
     </div>

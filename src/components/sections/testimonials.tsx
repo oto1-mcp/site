@@ -15,14 +15,14 @@ interface Testimonial {
 const testimonials: Testimonial[] = [
   {
     id: 1,
-    quote: "MCP Supervisor helped us launch our SaaS in just 3 weeks. What normally would have taken months was compressed into days.",
+    quote: "0to1 helped us launch our SaaS in just 3 weeks. What normally would have taken months was compressed into days.",
     author: "Sarah Johnson",
     role: "Founder",
     company: "MetricMind"
   },
   {
     id: 2,
-    quote: "The seamless orchestration between different MCPs gave us a cohesive strategy. Our social media presence grew 300% in the first month.",
+    quote: "The seamless orchestration between different AI agents gave us a cohesive strategy. Our social media presence grew 300% in the first month.",
     author: "David Chen",
     role: "CEO",
     company: "NexTech Solutions"
@@ -43,7 +43,7 @@ export default function Testimonials() {
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Success Stories</h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            See how other founders used MCP Supervisor to bring their startup ideas to life.
+            See how other founders used 0to1 to bring their startup ideas to life.
           </p>
         </div>
 

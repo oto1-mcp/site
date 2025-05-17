@@ -32,9 +32,6 @@ export default function HomePage() {
               <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6 lg:leading-[1.1] text-gray-900">
                 Orchestrate Your <span className="text-blue-600">Startup Journey</span> With AI
               </h1>
-              <p className="text-xl text-gray-600 mb-8 max-w-xl mx-auto lg:mx-0">
-                Our MCP Supervisor coordinates specialized AI agents to build your startup from concept to launch - all in one platform.
-              </p>
               
               {/* Search Bar Component */}
               <div className="max-w-2xl w-full mx-auto lg:mx-0 mb-8">
@@ -96,7 +93,7 @@ export default function HomePage() {
             </motion.div>
             
             <motion.div 
-              className="flex-1"
+              className="flex-1 xl:flex-grow-0 xl:min-w-[600px]"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.2 }}
@@ -209,7 +206,7 @@ export default function HomePage() {
               </div>
               <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900">Ready to Launch Your Startup?</h2>
               <p className="text-xl text-gray-600 mb-8">
-                Join thousands of founders who are building the future with our MCP Supervisor platform.
+                Join thousands of founders who are building the future with our 0to1 platform.
               </p>
               <Button size="lg" className="rounded-full group bg-gradient-to-r from-blue-600 to-indigo-600 hover:opacity-90 transition-opacity text-white">
                 <Link href="/dashboard">
@@ -227,27 +224,27 @@ export default function HomePage() {
 const features = [
   {
     title: 'Web App Development',
-    description: 'Specialized MCP creates custom web applications to showcase your startup\'s unique value proposition.',
+    description: 'Specialized AI creates custom web applications to showcase your startup\'s unique value proposition.',
     icon: Code,
   },
   {
     title: 'Social Media Management',
-    description: 'Dedicated MCP creates and manages social media accounts across platforms for maximum exposure.',
+    description: 'Dedicated AI creates and manages social media accounts across platforms for maximum exposure.',
     icon: Activity,
   },
   {
     title: 'Content Creation',
-    description: 'Content MCP generates engaging and SEO-optimized content to attract and convert customers.',
+    description: 'Content AI generates engaging and SEO-optimized content to attract and convert customers.',
     icon: Terminal,
   },
   {
     title: 'Growth Hacking',
-    description: 'Strategic MCP identifies and implements tactics for rapid, sustainable growth.',
+    description: 'Strategic AI identifies and implements tactics for rapid, sustainable growth.',
     icon: BarChart,
   },
   {
     title: 'Smart Orchestration',
-    description: 'Our MCP Supervisor coordinates all activities for optimal efficiency and results.',
+    description: 'Our 0to1 coordinates all activities for optimal efficiency and results.',
     icon: LucideSparkles,
   },
   {
@@ -263,8 +260,8 @@ const steps = [
     description: 'Describe your startup idea in our intuitive prompt interface. Be as detailed or concise as you like.',
   },
   {
-    title: 'MCPs Get to Work',
-    description: 'Our Supervisor MCP analyzes your input and delegates tasks to specialized MCPs for optimal execution.',
+    title: 'AI Agents Get to Work',
+    description: 'Our 0to1 platform analyzes your input and delegates tasks to specialized AI agents for optimal execution.',
   },
   {
     title: 'Launch Your Startup',

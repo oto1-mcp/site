@@ -48,10 +48,10 @@ export function Footer() {
               <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center text-white">
                 <Sparkles size={16} />
               </div>
-              <span className="text-blue-600">MCP Supervisor</span>
+              <span className="text-blue-600">0to1</span>
             </Link>
             <p className="mt-4 max-w-xs text-gray-600">
-              Empower your startup journey with our AI-powered MCP orchestration platform.
+              Empower your startup journey with our AI-powered orchestration platform.
             </p>
             <div className="mt-6 flex space-x-4">
               {socialLinks.map((link) => {
@@ -93,7 +93,7 @@ export function Footer() {
 
         <div className="mt-12 pt-8 border-t border-gray-200 flex flex-col md:flex-row justify-between items-center">
           <p className="text-sm text-gray-600">
-            © {new Date().getFullYear()} MCP Supervisor. All rights reserved.
+            © {new Date().getFullYear()} 0to1. All rights reserved.
           </p>
           <div className="mt-4 md:mt-0 flex space-x-6">
             <Link href="/terms" className="text-sm text-gray-600 hover:text-gray-900 hover:underline transition-colors">
