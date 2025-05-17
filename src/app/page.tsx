@@ -1,23 +1,73 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Terminal, Code, Activity, CheckCircle, BarChart, LucideSparkles, Check, ArrowUpRight, X } from 'lucide-react';
+import { ArrowRight, Terminal, Code, Activity, CheckCircle, BarChart, LucideSparkles, Check, ArrowUpRight, X, Loader2 } from 'lucide-react';
 import HeroAnimation from '@/components/ui/hero-animation';
 import Statistics from '@/components/sections/statistics';
 import Testimonials from '@/components/sections/testimonials';
 import { motion } from 'framer-motion';
+import { getStripe } from '@/lib/stripe';
 
 export default function HomePage() {
+  const searchParams = useSearchParams();
   const [showWaitlistForm, setShowWaitlistForm] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [paymentStatus, setPaymentStatus] = useState<'success' | 'canceled' | null>(null);
+
+  // Check for success or canceled payment status from URL parameters
+  useEffect(() => {
+    const success = searchParams.get('success');
+    const canceled = searchParams.get('canceled');
+    
+    if (success === 'true') {
+      setPaymentStatus('success');
+      setShowWaitlistForm(true);
+    } else if (canceled === 'true') {
+      setPaymentStatus('canceled');
+      setShowWaitlistForm(true);
+    }
+  }, [searchParams]);
 
   const openWaitlistForm = () => {
     setShowWaitlistForm(true);
+    setPaymentStatus(null);
   };
 
   const closeWaitlistForm = () => {
     setShowWaitlistForm(false);
+  };
+
+  // Handle Stripe checkout
+  const handleCheckout = async () => {
+    try {
+      setIsLoading(true);
+      
+      // Create checkout session on the server
+      const response = await fetch('/api/create-checkout-session', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      
+      const { sessionId } = await response.json();
+      
+      // Redirect to Stripe Checkout
+      const stripe = await getStripe();
+      if (stripe) {
+        const { error } = await stripe.redirectToCheckout({ sessionId });
+        if (error) {
+          console.error('Stripe checkout error:', error);
+        }
+      }
+    } catch (error) {
+      console.error('Error during checkout:', error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -237,7 +287,7 @@ export default function HomePage() {
       {/* Waitlist Form Popup */}
       {showWaitlistForm && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
-          <div className="bg-white rounded-lg shadow-xl max-w-[700px] w-full max-h-[90vh] overflow-auto relative">
+          <div className="bg-white rounded-lg shadow-xl max-w-[500px] w-full overflow-auto relative p-8">
             <button 
               onClick={closeWaitlistForm}
               className="absolute top-3 right-3 text-gray-500 hover:text-gray-800 z-10"
@@ -245,16 +295,79 @@ export default function HomePage() {
             >
               <X size={24} />
             </button>
-            <iframe 
-              src="https://docs.google.com/forms/d/e/1FAIpQLSchNg5TMV7-Ovo2VMUSkatn8bEN9iVS4VSlv9DxnVtb_VVa1g/viewform?embedded=true" 
-              width="640" 
-              height="551" 
-              frameBorder="0" 
-              title="Waitlist Form"
-              className="w-full"
-            >
-              Loading…
-            </iframe>
+            
+            <div className="text-center">
+              {/* Success Message */}
+              {paymentStatus === 'success' && (
+                <div className="py-8">
+                  <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <CheckCircle className="h-8 w-8 text-green-600" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-2">Payment Successful!</h3>
+                  <p className="text-gray-600 mb-6">
+                    Thank you for joining our waitlist. We'll be in touch soon with next steps.
+                  </p>
+                  <Button 
+                    onClick={closeWaitlistForm}
+                    className="rounded-full bg-gradient-to-r from-blue-600 to-indigo-600"
+                  >
+                    Return to Home
+                  </Button>
+                </div>
+              )}
+              
+              {/* Canceled Message */}
+              {paymentStatus === 'canceled' && (
+                <div className="py-8">
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">Payment Canceled</h3>
+                  <p className="text-gray-600 mb-6">
+                    Your payment was canceled. You can try again whenever you're ready.
+                  </p>
+                  <Button 
+                    onClick={handleCheckout}
+                    className="rounded-full bg-gradient-to-r from-blue-600 to-indigo-600"
+                    disabled={isLoading}
+                  >
+                    {isLoading ? (
+                      <span className="flex items-center">
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Processing...
+                      </span>
+                    ) : (
+                      <span>Try Again</span>
+                    )}
+                  </Button>
+                </div>
+              )}
+              
+              {/* Initial Checkout State */}
+              {!paymentStatus && (
+                <div className="py-8">
+                  <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-full flex items-center justify-center">
+                    <LucideSparkles size={28} className="text-white" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-2">Join Our Waitlist</h3>
+                  <p className="text-gray-600 mb-6">
+                    Get early access to our platform for just $20. Be among the first to experience the future of startup building.
+                  </p>
+                  <Button 
+                    onClick={handleCheckout}
+                    size="lg"
+                    className="rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 w-full"
+                    disabled={isLoading}
+                  >
+                    {isLoading ? (
+                      <span className="flex items-center justify-center">
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Processing...
+                      </span>
+                    ) : (
+                      <span className="flex items-center justify-center">
+                        Pay $20 to Join Waitlist <ArrowRight className="ml-2 h-4 w-4" />
+                      </span>
+                    )}
+                  </Button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       )}
@@ -308,4 +421,4 @@ const steps = [
     title: 'Launch Your Startup',
     description: 'Receive a complete package including web application, social media accounts, content, and growth strategies.',
   },
-]; 
+];
